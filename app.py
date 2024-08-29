@@ -7,7 +7,7 @@ def init_camera(source):
     if source == "Local Camera (Webcam)":
         return cv2.VideoCapture(0)
     elif source == "External Camera (IP Camera)":
-        camera_url = st.text_input("Enter IP Camera URL:", value="")
+        camera_url = st.text_input("Enter IP Camera URL:", value="http://192.168.1.129:8080/video")
         if camera_url:
             return cv2.VideoCapture(camera_url)
         else:
@@ -38,7 +38,7 @@ camera = init_camera(camera_source)
 if camera:
     # Create a placeholder for the video
     stframe = st.empty()
-    
+
     # Stream video
     while True:
         frame = get_frame(camera)
@@ -47,7 +47,6 @@ if camera:
             break
         # Display the video frame in the Streamlit app
         stframe.image(frame, channels="RGB", use_column_width=True)
-        st.sleep(0.1)  # Add a small delay to prevent high CPU usage
 
     # Release the camera when done
     camera.release()
