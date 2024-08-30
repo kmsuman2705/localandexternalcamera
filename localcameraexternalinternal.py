@@ -38,11 +38,12 @@ if camera:
     # Create a placeholder for the video
     stframe = st.empty()
 
-    # Update video feed
-    frame = get_frame(camera)
-    if frame is None:
-        st.error("Failed to capture video.")
-    else:
+    # Stream video continuously
+    while True:
+        frame = get_frame(camera)
+        if frame is None:
+            st.error("Failed to capture video.")
+            break
         # Display the video frame in the Streamlit app
         stframe.image(frame, channels="RGB", use_column_width=True)
 
